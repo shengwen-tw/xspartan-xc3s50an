@@ -8,7 +8,7 @@
 sudo apt install libusb-dev libftdi-dev
 ```
 
-1. Install xc3sprog
+1. Installing the **xc3sprog**
 
 ```
 git clone https://github.com/xtrx-sdr/xc3sprog.git
@@ -24,6 +24,14 @@ cmake ..
 make
 ```
 
-## Reference
+2. Installing the **Vivado Design Suite**
 
-[Xilinx Platform Cabel USB Installation Guide](https://www.xilinx.com/support/documentation/user_guides/ug344.pdf)
+Download the installer from [here](https://www.xilinx.com/support/download.html)
+
+Type following commands to start the installer:
+
+```
+chmod +x ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
+
+sudo ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
+```
