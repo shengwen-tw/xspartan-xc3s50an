@@ -26,12 +26,14 @@ make
 
 2. Installing the **Vivado Design Suite**
 
-Download the installer from [here](https://www.xilinx.com/support/download.html)
+* 1. Download the installer from [here](https://www.xilinx.com/support/download.html)
 
-Type following commands to start the installer:
+* 2. Type the following commands to start the installer:
 
 ```
 chmod +x ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
 
 sudo ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
 ```
+
+* 3. Choose **Vivado HL System Edition**
