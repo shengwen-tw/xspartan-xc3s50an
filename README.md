@@ -37,3 +37,11 @@ sudo ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
 ```
 
 * 3. Choose **Vivado HL System Edition**
+
+* 4. After finished installing, type the following commands to install the Xilinx device driver:
+
+```
+cd /opt/Xilinx/Vivado/2018.2/data/xicom/cable_drivers/lin64/install_script/install_drivers
+
+sudo ./install_drivers
+```
