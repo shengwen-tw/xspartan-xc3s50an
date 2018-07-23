@@ -24,24 +24,34 @@ cmake ..
 make
 ```
 
-2. Installing the **Vivado Design Suite**
+2. Installing the **Xilinx ISE Design Suite 14.7**
 
 * 1. Download the installer from [here](https://www.xilinx.com/support/download.html)
 
 * 2. Type the following commands to start the installer:
 
 ```
-chmod +x ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
+tar -xvf Xilinx_ISE_DS_Lin_14.7_1015_1.tar
 
-sudo ./Xilinx_Vivado_SDK_Web_2018.2_0614_1954_Lin64.bin
+cd Xilinx_ISE_DS_Lin_14.7_1015_1/
+
+sudo ./xsetup
 ```
 
-* 3. Choose **Vivado HL System Edition**
+* 3. select **ISE WebPACK**
+
+* 4. After the installation, type:
+
+```
+source /opt/Xilinx/14.7/ISE_DS/settings64.sh && ise
+```
+
+* 5. Register the product (get the key at Xilinx's website)
 
 * 4. After finished installing, type the following commands to install the Xilinx device driver:
 
 ```
-cd /opt/Xilinx/Vivado/2018.2/data/xicom/cable_drivers/lin64/install_script/install_drivers
+cd /opt/Xilinx/14.7/ISE_DS/common/bin/lin64/install_script/install_drivers
 
 sudo ./install_drivers
 
@@ -75,3 +85,7 @@ sudo udevadm control --reload-rules
 Some of the **Xilinx Platform Cable USB** from China was made of **fx2lp** microcontroller instead of **fx2**, so the solution presented above is to load the correct firmware.
 
 Now, the device ID from **lsusb** should turn into **03fd:0008**
+
+## Reference
+
+[[1]](https://isite.tw/2015/09/30/13717)
