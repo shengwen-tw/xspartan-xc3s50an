@@ -46,9 +46,9 @@ sudo ./xsetup
 source /opt/Xilinx/14.7/ISE_DS/settings64.sh && ise
 ```
 
-* 5. Register the product (get the key at Xilinx's website)
+* 5. Register the product (get the key from Xilinx's website)
 
-* 4. After finished installing, type the following commands to install the Xilinx device driver:
+* 6. After finished installing, type the following commands to install the Xilinx device driver:
 
 ```
 cd /opt/Xilinx/14.7/ISE_DS/common/bin/lin64/install_script/install_drivers
@@ -57,7 +57,7 @@ sudo ./install_drivers
 
 sudo udevadm control --reload-rules
 ```
-**If** the status indicator doesn't light up after step **iv**, and **lsusb** shows that your device ID is **03fd:000d**, try the following solution.
+**If** the status indicator doesn't light up after step **vi**, and **lsusb** shows that your device ID is **03fd:000d**, try the following solution.
 
 First, download the device firmware:
 
