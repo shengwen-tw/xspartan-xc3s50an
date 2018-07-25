@@ -1,5 +1,5 @@
 module uart_transmitter(input wire sys_clk,
-			input wire tx_clk,
+			input wire tx_clk_en,
 			input wire tx_en,
 			input wire [7:0] tx_data,
 			output reg uart_tx);
@@ -24,21 +24,21 @@ module uart_transmitter(input wire sys_clk,
 				bit_pos = 3'd0;
 			end
 		end
-		UART_TX_IDLE: begin
-			if (tx_clk) begin
+		UART_TX_START: begin
+			if (tx_clk_en) begin
 			end
 		end
 		UART_TX_DATA: begin
-			if (tx_clk) begin
+			if (tx_clk_en) begin
 			end
 		end
 		UART_TX_STOP: begin
-			if (tx_clk) begin
+			if (tx_clk_en) begin
 			end
 		end
 		default: begin
 			state = UART_TX_IDLE;
-			//uart_tx = 1;
+			uart_tx = 1;
 		end
 		endcase
 	end

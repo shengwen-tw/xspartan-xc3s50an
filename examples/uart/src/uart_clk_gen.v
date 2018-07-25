@@ -2,7 +2,9 @@
 
 module uart_clock_generator(input wire sys_clk,
 			    output reg uart_tx_clk,
-			    output reg uart_rx_clk);
+			    output reg uart_rx_clk,
+			    output wire tx_clk_en,
+			    output wire rx_clk_en);
 
 	parameter SYS_CLK = 30000000;
 	parameter BAUDRATE = 9600;
@@ -17,6 +19,9 @@ module uart_clock_generator(input wire sys_clk,
 		uart_tx_clk = 0;
 		uart_rx_clk = 0;
 	end
+
+	assign tx_clk_en = (tx_acc == 0);
+	assign rx_clk_en = (rx_acc == 0);
 
 	always @(posedge sys_clk) begin
 		if(tx_acc == 0)
