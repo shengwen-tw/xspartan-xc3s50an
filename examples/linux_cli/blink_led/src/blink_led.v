@@ -10,7 +10,7 @@ module blink_led(clk_in, led);
 	always @(posedge clk_in) begin
 		if(cnt == 0)
 		begin
-			cnt = 3000000;
+			cnt = 15000000;
 			led = ~led;
 		end
 		else
@@ -18,7 +18,7 @@ module blink_led(clk_in, led);
 	end
 	
 	initial begin
-		cnt = 3000000;
+		cnt = 15000000;
 		led = 1;
 	end
 endmodule
