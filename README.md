@@ -1,6 +1,66 @@
 # xspartan-xc3s50an
 
+Xilinx Spartan 3-AN FPGA sample programs and environment setup guide for beginners. 
+
+## Getting started with sample programs
+
+1. If you wish to sitck with the **ISE** Desktop development environment:
+
+Double click the **.xise** file.
+
+2. If you prefer Linux CLI environment:
+
+**Compilation**
+
+1. Initialize the project
+
+```
+make init
+```
+
+2. Synthesize the circuit:
+
+```
+make synthesize
+```
+
+3. Implement design
+
+```
+make implement_design
+```
+
+4. Generate programming file (.bit stream)
+
+```
+make generate_programming_file
+```
+
+You could also type the following to merge 4 steps in 1:
+
+```
+make all
+```
+
+Finally, use **Impact** to program the FPGA:
+
+```
+make impact
+```
+
 ## Environment setup
+
+**Tested environment:**
+
+* Ubuntu 16.04 (4.9.0-040900-generic)
+
+* Xilinx ISE Design Suite 14.7
+
+**Tested hardwares:**
+
+* Customized XC3S50AN board (Xilinx Spartan 3-AN)
+
+* Xilinx Platform Cable USB (JTAG)
 
 0. Prerequisite
 
@@ -8,23 +68,7 @@
 sudo apt install libusb-dev libftdi-dev
 ```
 
-1. Installing the **xc3sprog**
-
-```
-git clone https://github.com/xtrx-sdr/xc3sprog.git
-
-cd xc3sprog
-
-mkdir build
-
-cd build
-
-cmake ..
-
-make
-```
-
-2. Installing the **Xilinx ISE Design Suite 14.7**
+1. Installing the **Xilinx ISE Design Suite 14.7**
 
 * 1. Download the installer from [here](https://www.xilinx.com/support/download.html)
 
@@ -48,43 +92,49 @@ source /opt/Xilinx/14.7/ISE_DS/settings64.sh && ise
 
 * 5. Register the product (get the key from Xilinx's website)
 
-* 6. After finished installing, type the following commands to install the Xilinx device driver:
+2. Installing **Xinlinx Platforn Cable USB** driver
+
+* 1. Clone and compile the **usb-driver** program
 
 ```
-cd /opt/Xilinx/14.7/ISE_DS/common/bin/lin64/install_script/install_drivers
+cd /tmp
 
-sudo ./install_drivers
+git clone git://git.zerfleddert.de/usb-driver
 
-sudo udevadm control --reload-rules
-```
-**If** the status indicator doesn't light up after step **vi**, and **lsusb** shows that your device ID is **03fd:000d**, try the following solution.
+cd cd usb-driver/
 
-First, download the device firmware:
+make
 
-```
-wget http://www.xilinx.com/txpatches/pub/utilities/fpga/xusbdfwu-1025.zip
-
-unzip xusbdfwu-1025.zip
-
-sudo cp xusbdfwu.hex /usr/share/xusbdfwu_fx2lp.hex
+sudo cp libusb-driver.so /usr/local/lib/libusb-driver.so
 ```
 
-Then, replace the content of **/etc/udev/rules.d/52-xilinx-pcusb.rules** to:
+* 2. Paste the following instrunction under **.bashrc** and restart the terminal:
+
+```
+LD_PRELOAD=/usr/local/lib/libusb-driver.so
+```
+
+* 3. Copy the cable driver from ISE installed path to **/usr/share**:
+
+```
+cd /opt/Xilinx/14.7/ISE_DS/common/bin/lin64
+
+sudo cp *.hex /usr/share/
+
+```
+
+* 4. Create **/etc/udev/rules.d/52-xilinx-pcusb.rules** with the content of:
 
 ```
 ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0008", MODE="666"
-SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="000d", MODE="666" ,RUN+="/sbin/fxload -v -t fx2lp -I /usr/share/xusbdfwu_fx2lp.hex -D $tempnode"
+SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="000d", MODE="666" ,RUN+="/sbin/fxload -v -t fx2lp -I /usr/share/xusb_emb.hex -D $tempnode"
 ```
 
-*Finally*, type the command:
+**Finally**, type the command:
 
 ```
 sudo udevadm control --reload-rules
 ```
-
-Some of the **Xilinx Platform Cable USB** from China was made of **fx2lp** microcontroller instead of **fx2**, so the solution presented above is to load the correct firmware.
-
-Now, the device ID from **lsusb** should turn into **03fd:0008**
 
 ## Reference
 
