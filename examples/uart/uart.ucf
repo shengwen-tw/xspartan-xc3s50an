@@ -1,0 +1,3 @@
+NET "uart_tx_clk" LOC = P130;
+NET "uart_rx_clk" LOC = P129;
+NET "sys_clk" LOC = P58;
