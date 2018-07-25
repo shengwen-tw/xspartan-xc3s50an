@@ -1,2 +1,0 @@
-NET "led" LOC = P138;
-NET "clk_in" LOC = P58;

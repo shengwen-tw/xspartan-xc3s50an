@@ -6,9 +6,14 @@ OPT_MODE=Speed
 OPT_LEVEL=1
 
 ###############################################################################################
-all: synthesize_xst implement_design generate_programming_file
+all: init synthesize_xst implement_design generate_programming_file
 
-init:
+init=build/
+
+#If you add new files or modify the parameter above, you should init it again
+
+init: build/
+build/:
 	@mkdir build/
 	@######################################################################################
 	@echo "Generate build/$(PROJECT).prj"
@@ -43,5 +48,10 @@ generate_programming_file:
 	@######################################################################################
 	bitgen -b -w $(PROJECT).ncd $(PROJECT).bit
 
+impact:
+	impact
+
 clean:
 	rm -rf build/
+
+.PHONY: init synthesize_xst implement_design generate_programming_file impact clean
