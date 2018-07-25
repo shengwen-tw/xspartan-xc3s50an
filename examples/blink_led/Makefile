@@ -1,7 +1,7 @@
 PROJECT=blink_led
 TOP=blink_led
 
-TARGET=xc3s50an-4-tqg144
+TARGET=xc3s50an-5-tqg144
 OPT_MODE=Speed
 OPT_LEVEL=1
 
@@ -32,7 +32,7 @@ synthesize_xst: build/$(PROJECT).xst build/$(PROJECT).prj
 implement_design:
 	cd build
 	@######################################################################################
-	ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc ../$(PROJECT).ucf \
+	ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc ../constraints.ucf \
 	-p $(TARGET) $(PROJECT).ngc $(PROJECT).ngd
 	@######################################################################################
 	map -intstyle ise -p $(TARGET) -cm area -ir off -pr off -c 100 \
@@ -41,7 +41,7 @@ implement_design:
 	par -w -intstyle ise -ol high -t 1 $(PROJECT).ncd $(PROJECT).ncd $(PROJECT).pcf
 	@######################################################################################
 	trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml $(PROJECT).twx $(PROJECT).ncd \
-	-o $(PROJECT).twr $(PROJECT).pcf -ucf ../$(PROJECT).ucf
+	-o $(PROJECT).twr $(PROJECT).pcf -ucf ../constraints.ucf
 
 generate_programming_file:
 	cd build
