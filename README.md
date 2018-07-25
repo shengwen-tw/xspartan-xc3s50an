@@ -112,7 +112,6 @@ LD_PRELOAD=/usr/local/lib/libusb-driver.so
 cd /opt/Xilinx/14.7/ISE_DS/common/bin/lin64
 
 sudo cp *.hex /usr/share/
-
 ```
 
 * 4. Create **/etc/udev/rules.d/52-xilinx-pcusb.rules** with the content of:
