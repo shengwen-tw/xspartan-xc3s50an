@@ -4,21 +4,13 @@ Xilinx Spartan 3-AN FPGA sample programs and environment setup guide for beginne
 
 ## Getting started with sample programs
 
-1. If you wish to sitck with the **ISE** Desktop development environment:
-
-Double click the **.xise** file.
-
-2. If you prefer Linux CLI environment:
-
-**Compilation**
-
 1. Initialize the project
 
 ```
 make init
 ```
 
-2. Synthesize the circuit:
+2. Synthesize
 
 ```
 make synthesize
@@ -36,13 +28,13 @@ make implement_design
 make generate_programming_file
 ```
 
-You could also type the following to merge 4 steps in 1:
+You could also type the following command to do 4 steps in 1:
 
 ```
 make all
 ```
 
-Finally, use **Impact** to program the FPGA:
+Then, use **ISE Impact** to program the FPGA:
 
 ```
 make impact
