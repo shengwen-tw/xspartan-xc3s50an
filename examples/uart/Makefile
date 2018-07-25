@@ -1,5 +1,5 @@
-PROJECT=uart
-TOP=uart
+PROJECT=test_uart
+TOP=test_uart
 
 TARGET=xc3s50an-5-tqg144
 OPT_MODE=Speed
