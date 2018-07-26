@@ -3,7 +3,8 @@ module uart(input wire sys_clk,
 	    output wire uart_rx_clk,
 	    input wire tx_en,
 	    input wire [7:0] tx_data,
-	    output wire uart_tx);
+	    output wire uart_tx,
+	    output wire uart_tx_busy);
 
 	wire tx_clk_en;
 	wire rx_clk_en;
@@ -17,11 +18,12 @@ module uart(input wire sys_clk,
 	);
 
 	uart_transmitter uart_tx_handler(
+		.sys_clk(sys_clk),
 		.tx_en(tx_en),
 		.tx_clk_en(tx_clk_en),
-		.sys_clk(sys_clk),
 		.tx_data(tx_data),
-		.uart_tx(uart_tx)
+		.uart_tx(uart_tx),
+		.uart_tx_busy(uart_tx_busy)
 	);
 
 endmodule
