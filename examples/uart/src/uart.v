@@ -31,9 +31,9 @@ module uart(input wire sys_clk,
 	);
 
 	uart_receiver uart_rx_handler(.sys_clk(sys_clk),
-		      .rx_clk_en(rx_en),
-		      .rx_data(rx_clk_en),
-		      .rx(rx_data),
+		      .rx_clk_en(rx_clk_en),
+		      .rx_data(rx_data),
+		      .rx(rx),
 		      .rx_ready(rx_ready),
 		      .rx_ready_clear(rx_ready_clear)
 	);
