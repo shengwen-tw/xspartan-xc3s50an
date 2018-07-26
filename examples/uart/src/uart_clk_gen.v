@@ -5,7 +5,7 @@ module uart_clock_generator(input wire sys_clk,
 			    output wire rx_clk_en);
 
 	parameter SYS_CLK = 30000000;
-	parameter BAUDRATE = 9600;
+	parameter BAUDRATE = 115200;
 
 	parameter TX_ACC_MAX = SYS_CLK / BAUDRATE;
 	parameter RX_ACC_MAX = SYS_CLK / (BAUDRATE * 16);
