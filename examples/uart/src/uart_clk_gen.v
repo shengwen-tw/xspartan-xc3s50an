@@ -1,8 +1,6 @@
-`timescale 1ns / 1ps
-
 module uart_clock_generator(input wire sys_clk,
-			    output reg uart_tx_clk,
-			    output reg uart_rx_clk,
+			    output reg tx_clk,      //tx clk debug pin
+			    output reg rx_clk,      //rx clk debug pin
 			    output wire tx_clk_en,
 			    output wire rx_clk_en);
 
@@ -16,8 +14,8 @@ module uart_clock_generator(input wire sys_clk,
 	reg[24:0] rx_acc = RX_ACC_MAX;
 
 	initial begin
-		uart_tx_clk = 0;
-		uart_rx_clk = 0;
+		tx_clk = 0;
+		rx_clk = 0;
 	end
 
 	assign tx_clk_en = (tx_acc == 0);
@@ -27,7 +25,7 @@ module uart_clock_generator(input wire sys_clk,
 		if(tx_acc == 0)
 		begin
 			tx_acc = TX_ACC_MAX;
-			uart_tx_clk = ~uart_tx_clk;
+			tx_clk = ~tx_clk;
 		end
 		else
 			tx_acc = tx_acc - 1;
@@ -37,7 +35,7 @@ module uart_clock_generator(input wire sys_clk,
 		if(rx_acc == 0)
 		begin
 			rx_acc = RX_ACC_MAX;
-			uart_rx_clk = ~uart_rx_clk;
+			rx_clk = ~rx_clk;
 		end
 		else
 			rx_acc = rx_acc - 1;
