@@ -38,17 +38,19 @@ module test_uart(input wire sys_clk,
 	end
 
 	always @(posedge sys_clk) begin
-		//blink led and send 1 byte data through uart every second
-		if(led_cnt == 0)
-		begin
-			led_cnt = DELYA_1S / 2;
-			led = ~led;
-
+		if (uart_rx_ready) begin
 			//send data if uart tx isn't busy
 			if (uart_tx_busy == 0) begin
 				uart_send_data = 65;
 				uart_tx_en = 1;
 			end
+		end
+
+		//blink led and send 1 byte data through uart every second
+		if(led_cnt == 0)
+		begin
+			led_cnt = DELYA_1S / 2;
+			led = ~led;
 		end
 		else
 			led_cnt = led_cnt - 1;
