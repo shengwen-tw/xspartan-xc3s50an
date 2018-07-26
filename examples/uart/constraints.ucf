@@ -1,7 +1,7 @@
 NET "uart_tx_clk" LOC = P130;
 NET "uart_rx_clk" LOC = P129;
 NET "uart_tx" LOC = P132;
-//NET "uart_rx" LOC = P131;
+NET "uart_rx" LOC = P131;
 
 NET "led" LOC = P138;
 
