@@ -6,9 +6,9 @@ module test_uart(input wire sys_clk,
 		 input wire uart_rx
 );
 
-	parameter DELYA_1S = 30000000;
+	parameter DELAY_1S = 30000000;
 
-	reg[23:0] led_cnt = DELYA_1S / 2;
+	reg[23:0] delay_cnt = 0;
 
 	reg uart_tx_en = 0; //set 1 to trigger uart to send a byte of data
 	reg [7:0] uart_send_data;
@@ -34,31 +34,38 @@ module test_uart(input wire sys_clk,
 	);
 
 	initial begin
-		led = 1;
+		led <= 0;
 	end
 
+	//print data received from uart rx
 	always @(posedge sys_clk) begin
 		if (uart_rx_ready) begin
-			//send data if uart tx isn't busy
-			if (uart_tx_busy == 0) begin
-				uart_send_data = 65;
-				uart_tx_en = 1;
-			end
+			uart_send_data <= uart_received_data;
+			uart_tx_en <= 1;
+			
+			uart_rx_ready_clear <= 1;
 		end
 
-		//blink led and send 1 byte data through uart every second
-		if(led_cnt == 0)
-		begin
-			led_cnt = DELYA_1S / 2;
-			led = ~led;
+		if (uart_tx_busy == 1)
+			uart_tx_en <= 0;
+
+		if (uart_rx_ready == 0)
+			uart_rx_ready_clear <= 0;
+	end
+
+	//blink led when receive the data from uart rx
+	always @(posedge sys_clk) begin
+		if (uart_rx_ready) begin
+			led <= 0;
+			delay_cnt <= 0;
+		end
+
+		if (delay_cnt == (DELAY_1S / 100)) begin
+			delay_cnt <= 0;
+			led <= 1;
 		end
 		else
-			led_cnt = led_cnt - 1;
-
-		//data is sent, reset the send bit
-		if (uart_tx_busy == 1) begin
-			uart_tx_en = 0;
-		end
+			delay_cnt <= delay_cnt + 1; 
 	end
 
 endmodule

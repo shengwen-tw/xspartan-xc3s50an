@@ -22,7 +22,7 @@ module uart_receiver(input wire sys_clk,
 
 	always @(posedge sys_clk) begin
 		if (rx_ready_clear == 1 && rx_ready == 1)
-			rx_ready = 0;
+			rx_ready <= 0;
 
 		if (rx_clk_en) begin
 			case(state)
