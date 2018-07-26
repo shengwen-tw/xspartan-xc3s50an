@@ -15,7 +15,7 @@ module test_uart(input wire sys_clk,
 	wire [7:0] uart_received_data;
 
 	wire uart_rx_ready;
-	reg uart_rx_ready_clear;
+	reg uart_rx_ready_clear = 0;
 
 	wire uart_tx_busy;
 

@@ -1,7 +1,7 @@
 module uart_receiver(input wire sys_clk,
 		     input wire rx_clk_en,
 		     output reg [7:0] rx_data,
-		     output reg rx,
+		     input wire rx,
 		     output reg rx_ready,
 		     input wire rx_ready_clear);
 
@@ -16,12 +16,16 @@ module uart_receiver(input wire sys_clk,
 	reg [3:0] sample = 0;
 	reg [3:0] bit_pos = 0;
 
+	initial begin
+		rx_ready <= 0;
+	end
+
 	always @(posedge sys_clk) begin
 		if (rx_clk_en) begin
 			if(rx_ready_clear == 1 && rx_ready == 1)
-				rx_ready = 0;
+				rx_ready <= 0;
 
-			case(state) 
+			case(state)
 			UART_RX_START: begin
 				//we are waiting for a low signal that continuing for 16 cycles
 				if (rx == 0)
@@ -34,7 +38,7 @@ module uart_receiver(input wire sys_clk,
 					sample <= 0;
 					bit_pos <= 0;
 					rx_buffer <= 0;
-					rx_ready = 0;
+					rx_ready <= 0;
 				end
 			end
 			UART_RX_DATA: begin
@@ -57,8 +61,8 @@ module uart_receiver(input wire sys_clk,
 
 				if (sample == 8) begin
 					if (rx == 1) begin
-						rx_data = rx_buffer;
-						rx_ready = 1;
+						rx_data <= rx_buffer;
+						rx_ready <= 1;
 					end //if 8th bit is not a high signal, abandon the packet
 
 					state <= UART_RX_START;
