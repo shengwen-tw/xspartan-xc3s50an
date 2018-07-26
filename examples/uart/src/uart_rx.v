@@ -51,7 +51,7 @@ module uart_receiver(input wire sys_clk,
 				end
 
 				//8 bits to get
-				if (bit_pos == 7 && sample == SAMPLE_TIMES) begin
+				if (bit_pos == 8 && sample == SAMPLE_TIMES) begin
 					state <= UART_RX_STOP;
 					sample <= 0;
 				end
