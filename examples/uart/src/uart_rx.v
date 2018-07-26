@@ -9,7 +9,7 @@ module uart_receiver(input wire sys_clk,
 	parameter UART_RX_DATA  = 2'b10;
 	parameter UART_RX_STOP  = 2'b11;
 
-	parameter SAMPLE_TIMES = 16; //we are using a 16x clock to do the sampling
+	parameter SAMPLE_TIMES = 15; //we are using a 16x clock to do the sampling
 
 	reg [7:0] rx_buffer = 0;
 	reg [2:0] state = UART_RX_START;
@@ -21,10 +21,10 @@ module uart_receiver(input wire sys_clk,
 	end
 
 	always @(posedge sys_clk) begin
-		if (rx_clk_en) begin
-			if(rx_ready_clear == 1 && rx_ready == 1)
-				rx_ready <= 0;
+		if (rx_ready_clear == 1 && rx_ready == 1)
+			rx_ready = 0;
 
+		if (rx_clk_en) begin
 			case(state)
 			UART_RX_START: begin
 				//we are waiting for a low signal that continuing for 16 cycles
