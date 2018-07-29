@@ -22,7 +22,7 @@ build/:
 	@echo "Generate build/$(PROJECT).xst"
 	@echo "run -ifn $(PROJECT).prj -ifmt mixed -top $(TOP) -ofn $(PROJECT) -ofmt NGC \
 	-p $(TARGET) -opt_mode $(OPT_MODE) -opt_level $(OPT_LEVEL) -ofn synthesis.log" \
-	> build/$(PROJECT).xst
+	-use_new_parser yes > build/$(PROJECT).xst
 
 .ONESHELL:
 synthesize_xst: build/$(PROJECT).xst build/$(PROJECT).prj
