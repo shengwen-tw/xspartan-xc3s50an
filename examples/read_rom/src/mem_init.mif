@@ -1,3 +1,7 @@
-@0
-42
-FF
+@0 // @ symbol indicates the start address of the following datas
+48 // H
+45 // E
+4c // L
+4c // L
+4f // O
+0a // \n

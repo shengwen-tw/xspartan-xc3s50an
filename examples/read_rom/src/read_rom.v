@@ -8,7 +8,7 @@ module read_rom(input wire sys_clk,
 
 	parameter DELAY_1S = 30000000;
 
-	reg[23:0] delay_cnt = 0;
+	reg[32:0] delay_cnt = 0;
 
 	reg uart_tx_en = 0; //set 1 to trigger uart to send a byte of data
 	reg [7:0] uart_send_data;
@@ -19,7 +19,8 @@ module read_rom(input wire sys_clk,
 
 	wire uart_tx_busy;
 
-	reg [7:0] mem[0:1];
+	reg [7:0] mem[0:5];
+	reg [7:0] str_pos = 0;
 
 	uart uart1(
 		.sys_clk(sys_clk),
@@ -37,25 +38,28 @@ module read_rom(input wire sys_clk,
 
 	initial begin
 		led <= 0;
-		$readmemh("mem_init.mif", mem, 0, 1);
+		$readmemh("mem_init.mif", mem, 0, 5);
 	end
 
 	//print data received from uart rx
 	always @(posedge sys_clk) begin
-		uart_send_data <= mem[0];
-		uart_tx_en <= 1;
-
-
-		if (delay_cnt == DELAY_1S) begin
+		if (delay_cnt == (DELAY_1S / 6)) begin
 			delay_cnt <= 0;
 
-			led <= 1;
-		end
-		else begin
-			delay_cnt <= delay_cnt + 1;
-			led <= 0;
-		end
+			//send 1 byte through uart
+			uart_send_data <= mem[str_pos];
+			uart_tx_en <= 1;
 
+			//print H,E,L,L,O,\n
+			if (str_pos == 5) begin
+				str_pos <= 0;
+				led = ~led;
+			end
+			else
+				str_pos <= str_pos + 1;
+		end
+		else
+			delay_cnt <= delay_cnt + 1;
 
 		if (uart_tx_busy == 1)
 			uart_tx_en <= 0;
