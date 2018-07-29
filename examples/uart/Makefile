@@ -17,7 +17,7 @@ build/:
 	@mkdir build/
 	@######################################################################################
 	@echo "Generate build/$(PROJECT).prj"
-	@for i in `ls -1 src/`; do echo "verilog work ../src/$$i" >> build/$(PROJECT).prj; done
+	@for i in `ls -1 src/*.v`; do echo "verilog work ../$$i" >> build/$(PROJECT).prj; done
 	@######################################################################################
 	@echo "Generate build/$(PROJECT).xst"
 	@echo "run -ifn $(PROJECT).prj -ifmt mixed -top $(TOP) -ofn $(PROJECT) -ofmt NGC \
